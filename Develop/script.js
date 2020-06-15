@@ -23,6 +23,19 @@ var generateBtn = document.querySelector("#generate");
 
 // ----------------------------- Functions created---------------------------------------
 
+//0 -  Reset values
+function resetValues(){
+  minLength = 0;
+  maxLength = 0;
+  lowerCase = false;
+  upperCase= false;
+  numeric = false;
+  specialChar = false;
+  mandatoryMin = 0;
+  passLength = 0;
+  password ="";
+}
+
 //1 - Ask for min length 
 function passMinLength(isCanceled){
   var flag = "Failed";
@@ -66,19 +79,19 @@ function specialCharacters(){
     // console.log(flag);
     alert("Next you need to pick at least one type of charcater to be included out of the next 4 options.");
     window.lowerCase = confirm("Do you want Lower Case letters in your password?");
-    if (lowerCase) {
+    if (lowerCase == true) {
       amountSpecialChar += 1;
     }
     window.upperCase = confirm("Do you want Upper Case letters in your password?");
-    if (upperCase) {
+    if (upperCase == true) {
       amountSpecialChar += 1;
     }
     window.numeric = confirm("Do you want numbers in your password?");
-    if (numeric) {
+    if (numeric == true) {
       amountSpecialChar += 1;
     }
     window.specialChar = confirm("Do you want special characters in your password?");
-    if (specialChar) {
+    if (specialChar == true) {
       amountSpecialChar += 1;
     }
     if (amountSpecialChar > 0){
@@ -111,35 +124,38 @@ function randomizeLength(){
 
 // 4 - Cretae password
 function createPassword(){
-  for (var i = 0; i < passLength + 1; i++){
-    if (lowerCase == true && i < passLength + 1 ){
+  var i = 0
+  while(i < passLength){
+    if (lowerCase == true && i < passLength){
       password += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
       i+= 1;
       console.log(password);
     }
-    if (upperCase == true && i < passLength + 1 ){
+    if (upperCase == true && i < passLength){
       var upperCaseLetter = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
       password += upperCaseLetter.toUpperCase();
       i+= 1;
       console.log(password);
     }
-    if (numeric == true && i < passLength + 1 ){
+    if (numeric == true && i < passLength){
       password += numbers.charAt(Math.floor(Math.random() * numbers.length));
       i+= 1;
       console.log(password);
     }
-    if (specialChar == true && i < passLength + 1 ){
+    if (specialChar == true && i < passLength){
       password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
       i+= 1;
       console.log(password);
     } 
-  }
+  };
   console.log(password);
   return password;
 }
 // -----------------------Code calling functions------------------------------------------
 
 function writePassword() {
+  // Clear password just in case
+  resetValues();
   var isCanceled = false;
   isCanceled = passMinLength(isCanceled );
   if (isCanceled ){
@@ -158,36 +174,5 @@ function writePassword() {
   passwordText.value = password;
 };
 
-// Add event listener to generate button
+// -----------------------Add event listener to generate button------------------------------
 generateBtn.addEventListener("click", writePassword);
-// function passMinLength(){
-//   // var i = 0;
-//   // while (i < 1 ) {
-//     window.minLength = prompt("Please enter an integer number for the minimum length");
-//     if (window.minLength === parseInt(window.minLength, 10)){
-//         i = 1;
-//     }
-//   }
-// }
-
-
-// passMinLength();
-// console.log(passMinLength);
-
-
-
-
-// // Get references to the #generate element
-// var generateBtn = document.querySelector("#generate");
-
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-//   passwordText.value = password;
-
-// }
-
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
