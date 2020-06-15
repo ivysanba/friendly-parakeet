@@ -77,7 +77,7 @@ function specialCharacters(){
   var flag = "Failed";
   while (flag == "Failed") {
     // console.log(flag);
-    alert("Next you need to pick at least one type of charcater to be included out of the next 4 options.");
+    alert("Next you need to pick at least one type of character to be included out of the next 4 options.");
     window.lowerCase = confirm("Do you want Lower Case letters in your password?");
     if (lowerCase == true) {
       amountSpecialChar += 1;
