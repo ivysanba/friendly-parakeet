@@ -31,6 +31,8 @@ function resetValues(){
   upperCase= false;
   numeric = false;
   specialChar = false;
+  amountSpecialChar = 0;
+  charsSelected= [];
   mandatoryMin = 0;
   passLength = 0;
   password ="";
@@ -41,8 +43,8 @@ function passMinLength(isCanceled){
   var flag = "Failed";
   while (flag == "Failed") {
     // console.log(flag);
-    window.minLength = prompt("Please enter an integer number for the minimum length");
-    if (minLength === null) {
+    window.minLength = prompt("Please enter an integer number for the minimum length, needs to be at least 8");
+    if (minLength === null || minLength < 8) {
       isCanceled = true;
       return isCanceled; //break out of the function early
     }else if (Number.isInteger(parseInt(minLength))){
@@ -59,11 +61,11 @@ function passMaxLength(isCanceled){
   var flag = "Failed";
   while (flag == "Failed") {
     // console.log(flag);
-    window.maxLength = prompt("Please enter an integer number for the maximum length. make sure is larger than the minimum length");
-    if (maxLength === null) {
+    window.maxLength = prompt("Please enter an integer number for the maximum length, with a maximum number of 128 and make sure is larger or equal than the minimum length");
+    if (maxLength === null || maxLength > 128) {
       isCanceled = true;
       return isCanceled; //break out of the function early
-    }else if (Number.isInteger(parseInt(maxLength)) && (parseInt(maxLength) > parseInt(minLength))){
+    }else if (Number.isInteger(parseInt(maxLength)) && (parseInt(maxLength) >= parseInt(minLength))){
        flag = "Success";
     } 
     console.log(minLength);
@@ -117,12 +119,18 @@ function randomizeLength(){
   }else{
     mandatoryMin = minLength;
   }
-  passLength = Math.floor(Math.random() * (parseInt(maxLength) - parseInt(mandatoryMin)) + parseInt(minLength));
-  console.log("passLength:" + passLength);
+
+  if (maxLength == minLength){
+    passLength = maxLength;
+  }else{
+    passLength = Math.floor(Math.random() * (parseInt(maxLength) - parseInt(mandatoryMin)) + parseInt(minLength));
+    console.log("passLength:" + passLength);
+  }
+
 };
 
 
-// 4 - Cretae password
+// 4 - Create password
 function createPassword(){
   var i = 0
   while(i < passLength){
