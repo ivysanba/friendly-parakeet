@@ -42,7 +42,6 @@ function resetValues(){
 function passMinLength(isCanceled){
   var flag = "Failed";
   while (flag == "Failed") {
-    // console.log(flag);
     window.minLength = prompt("Please enter an integer number for the minimum length, needs to be at least 8");
     if (minLength === null || minLength < 8) {
       isCanceled = true;
@@ -50,10 +49,7 @@ function passMinLength(isCanceled){
     }else if (Number.isInteger(parseInt(minLength))){
        flag = "Success";
     } 
-    console.log(minLength);
-    console.log(flag);
   }
-  //console.log("It Works");
 };
 
 //2 - Ask for max length
@@ -68,17 +64,13 @@ function passMaxLength(isCanceled){
     }else if (Number.isInteger(parseInt(maxLength)) && (parseInt(maxLength) >= parseInt(minLength))){
        flag = "Success";
     } 
-    console.log(minLength);
-    console.log(flag);
   }
-  //console.log("It Works");
 };
 
 //3 - Ask for set of special characters to be included
 function specialCharacters(){
   var flag = "Failed";
   while (flag == "Failed") {
-    // console.log(flag);
     alert("Next you need to pick at least one type of character to be included out of the next 4 options.");
     window.lowerCase = confirm("Do you want Lower Case letters in your password?");
     if (lowerCase == true) {
@@ -99,20 +91,12 @@ function specialCharacters(){
     if (amountSpecialChar > 0){
       flag = "Success";
     }
-     console.log("amountSpecialChar:" + amountSpecialChar );
-     console.log("lowerCase:" + lowerCase);
-     console.log("upperCase:" + upperCase);
-     console.log("numeric:" + numeric);
-     console.log("specialChar:" + specialChar );
   }
 };
 
 // 3- Length of the password
 function randomizeLength(){
   // The length needs to allow for all the special characters so the min needs to be allow for lal the types
-  console.log("maxLength:" + maxLength);
-  console.log("minLength:" + minLength);
-  console.log("specialChar:" + specialChar );
  
   if (minLength < amountSpecialChar){
     mandatoryMin = amountSpecialChar;
@@ -124,9 +108,7 @@ function randomizeLength(){
     passLength = maxLength;
   }else{
     passLength = Math.floor(Math.random() * (parseInt(maxLength) - parseInt(mandatoryMin)) + parseInt(minLength));
-    console.log("passLength:" + passLength);
   }
-
 };
 
 
@@ -137,32 +119,27 @@ function createPassword(){
     if (lowerCase == true && i < passLength){
       password += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
       i+= 1;
-      console.log(password);
     }
     if (upperCase == true && i < passLength){
       var upperCaseLetter = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
       password += upperCaseLetter.toUpperCase();
       i+= 1;
-      console.log(password);
     }
     if (numeric == true && i < passLength){
       password += numbers.charAt(Math.floor(Math.random() * numbers.length));
       i+= 1;
-      console.log(password);
     }
     if (specialChar == true && i < passLength){
       password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
       i+= 1;
-      console.log(password);
     } 
   };
-  console.log(password);
   return password;
 }
 // -----------------------Code calling functions------------------------------------------
 
 function writePassword() {
-  // Clear password just in case
+  // Clear values
   resetValues();
   var isCanceled = false;
   isCanceled = passMinLength(isCanceled );
